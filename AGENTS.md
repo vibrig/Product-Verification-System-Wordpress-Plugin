@@ -8,3 +8,4 @@
 - Name each ZIP and its GitHub asset display label using Name - Version.zip, for example: Product Verification System - 1.9.1.zip. Use hyphens in the download filename when GitHub normalizes spaces.
 - ZIP the files and subfolders inside the project directly at the archive root, without an enclosing plugin directory. Exclude Git metadata, agent instructions, credentials, and generated release archives.
 - Run the existing relevant checks and inspect the ZIP contents before publishing.
+- Save release ZIP files in F:\Work\My Projects\Wordpress\Plugin\1.Updates\Product Verification System.

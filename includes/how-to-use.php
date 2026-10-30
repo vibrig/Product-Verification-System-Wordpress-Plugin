@@ -12,13 +12,18 @@ function pcvs_how_to_use_page_callback() {
         <h1><?php esc_html_e('How to Use Product Verification System', 'product-code-verification-system'); ?></h1>
         <p><?php esc_html_e('Owner: Vibrig', 'product-code-verification-system'); ?> &middot; <a href="https://vibrig.com/" target="_blank" rel="noopener noreferrer">vibrig.com</a></p>
         <div class="pcvs-guide-card">
+            <h2><?php esc_html_e('Settings and Plugin Updates', 'product-code-verification-system'); ?></h2>
+            <p><?php esc_html_e('Use Settings > General Settings for form text, messages, alerts, history, and plugin updates. Use Settings > Field Settings for labels, order, visibility, and custom fields.', 'product-code-verification-system'); ?></p>
+            <p><?php esc_html_e('In General Settings > Plugin Updates, save a GitHub token with read access to the release repository when it is private. Click Check for updates, then Update now when a newer version is available. WordPress also shows available versions on its Updates and Installed Plugins screens.', 'product-code-verification-system'); ?></p>
+        </div>
+        <div class="pcvs-guide-card">
             <h2><?php esc_html_e('Projects, Clients, and Services', 'product-code-verification-system'); ?></h2>
             <ol>
                 <li><?php esc_html_e('Open Product Verification > Clients and add a client name, company, contact details, address, website, and notes. Publish the client to make it available in selectors.', 'product-code-verification-system'); ?></li>
                 <li><?php esc_html_e('Open Product Verification > Projects, add a project, optionally assign its client, and publish it.', 'product-code-verification-system'); ?></li>
                 <li><?php esc_html_e('Add or edit a product. Choose Product or Service as the item type, then select its project. Many items can use the same project.', 'product-code-verification-system'); ?></li>
                 <li><?php esc_html_e('If the project has a client, the Client selector fills automatically. Otherwise, select a client manually. Changes to the project client apply to its items immediately.', 'product-code-verification-system'); ?></li>
-                <li><?php esc_html_e('In Settings > Frontend Display Fields, reorder or hide Project and Client. Verification results show their names only; client contact details and notes remain in the admin area.', 'product-code-verification-system'); ?></li>
+                <li><?php esc_html_e('In Settings > Field Settings > Frontend Display Fields, reorder or hide Project and Client. Verification results show their names only; client contact details and notes remain in the admin area.', 'product-code-verification-system'); ?></li>
                 <li><?php esc_html_e('Use the Products / services count in the Projects list to view the items assigned to a project.', 'product-code-verification-system'); ?></li>
             </ol>
         </div>
@@ -52,7 +57,7 @@ function pcvs_how_to_use_page_callback() {
         </div>
 
         <div class="pcvs-guide-card">
-            <h2><?php esc_html_e('Step 3: Configure Settings (Optional)', 'product-code-verification-system'); ?></h2>
+            <h2><?php esc_html_e('Step 3: Configure General and Field Settings', 'product-code-verification-system'); ?></h2>
             <p><?php esc_html_e('You can customize the messages shown to users after a verification attempt.', 'product-code-verification-system'); ?></p>
              <ol>
                 <li><?php esc_html_e('Go to "Product Verification" > "Settings".', 'product-code-verification-system'); ?></li>

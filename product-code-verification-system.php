@@ -3,9 +3,10 @@
  * Plugin Name: Product Verification System
  * Plugin URI: https://vibrig.com/
  * Description: Verify products and documents with unique codes, customizable results, and optional verification logs. Owned by Vibrig.
- * Version: 1.9.1
+ * Version: 1.9.2
  * Author: Vibrig
  * Author URI: https://vibrig.com/
+ * Update URI: https://github.com/vibrig/Product-Verification-System-Wordpress-Plugin
  * License: GPL-2.0+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: product-code-verification-system
@@ -19,11 +20,13 @@ if (!defined('ABSPATH')) {
 // Define plugin path and URL constants
 define('PCVS_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('PCVS_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('PCVS_VERSION', '1.9.1');
+define('PCVS_VERSION', '1.9.2');
+define('PCVS_PLUGIN_FILE', __FILE__);
 
 // Load core functionality
 require_once PCVS_PLUGIN_DIR . 'includes/post-type.php';
 require_once PCVS_PLUGIN_DIR . 'includes/settings.php';
+require_once PCVS_PLUGIN_DIR . 'includes/updates.php';
 require_once PCVS_PLUGIN_DIR . 'includes/admin-menus.php';
 require_once PCVS_PLUGIN_DIR . 'includes/relationships.php';
 require_once PCVS_PLUGIN_DIR . 'includes/product-meta.php';

@@ -135,12 +135,16 @@ function pcvs_settings_page_callback() {
     if (!current_user_can('manage_options')) {
         wp_die(esc_html__('Unauthorized.', 'product-code-verification-system'));
     }
-    if (isset($_POST['pcvs_settings_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['pcvs_settings_nonce'])), 'pcvs_settings_action')) {
+    $tab = isset($_GET['tab']) && $_GET['tab'] === 'fields' ? 'fields' : 'general';
+    if (isset($_POST['pcvs_settings_nonce']) && is_string($_POST['pcvs_settings_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['pcvs_settings_nonce'])), 'pcvs_settings_action')) {
+        if ($tab === 'general') {
         update_option('pcvs_genuine_message', sanitize_textarea_field(wp_unslash($_POST['genuine_message'])));
         update_option('pcvs_invalid_message', sanitize_textarea_field(wp_unslash($_POST['invalid_message'])));
         update_option('pcvs_admin_email', sanitize_email(wp_unslash($_POST['admin_email'])));
         $advanced_input = isset($_POST['pcvs_advanced']) && is_array($_POST['pcvs_advanced']) ? wp_unslash($_POST['pcvs_advanced']) : array();
         update_option('pcvs_advanced_settings', pcvs_sanitize_advanced_settings($advanced_input));
+        pcvs_save_update_settings();
+        } else {
         $fields_data = isset($_POST['pcvs_fields']) ? wp_unslash($_POST['pcvs_fields']) : array();
         $sanitized_fields = array();
         if (!empty($fields_data['key'])) {
@@ -156,6 +160,7 @@ function pcvs_settings_page_callback() {
             }
         }
         update_option('pcvs_fields', $sanitized_fields);
+        }
         add_settings_error('pcvs_messages', 'settings_updated', __('Settings saved successfully!', 'product-code-verification-system'), 'success');
     }
     $genuine_message = get_option('pcvs_genuine_message', __('This product is genuine!', 'product-code-verification-system'));
@@ -168,8 +173,14 @@ function pcvs_settings_page_callback() {
         <h1><?php esc_html_e('Product Verification System Settings', 'product-code-verification-system'); ?></h1>
         <p><?php esc_html_e('Owner: Vibrig', 'product-code-verification-system'); ?> &middot; <a href="https://vibrig.com/" target="_blank" rel="noopener noreferrer">vibrig.com</a></p>
         <?php settings_errors('pcvs_messages'); ?>
+        <nav class="nav-tab-wrapper" aria-label="<?php esc_attr_e('Settings sections', 'product-code-verification-system'); ?>">
+            <a class="nav-tab <?php echo $tab === 'general' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url(admin_url('edit.php?post_type=product_code&page=pcvs-settings&tab=general')); ?>" <?php if ($tab === 'general') echo 'aria-current="page"'; ?>><?php esc_html_e('General Settings', 'product-code-verification-system'); ?></a>
+            <a class="nav-tab <?php echo $tab === 'fields' ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url(admin_url('edit.php?post_type=product_code&page=pcvs-settings&tab=fields')); ?>" <?php if ($tab === 'fields') echo 'aria-current="page"'; ?>><?php esc_html_e('Field Settings', 'product-code-verification-system'); ?></a>
+        </nav>
         <form method="post" action="">
             <?php wp_nonce_field('pcvs_settings_action', 'pcvs_settings_nonce'); ?>
+            <?php if ($tab === 'general') : ?>
+            <h2><?php esc_html_e('General Settings', 'product-code-verification-system'); ?></h2>
             <?php pcvs_render_advanced_settings(); ?>
            
             <h2 class="title"><?php esc_html_e('Messages & Alerts', 'product-code-verification-system'); ?></h2>
@@ -187,6 +198,9 @@ function pcvs_settings_page_callback() {
                     <td><input type="email" id="admin_email" name="admin_email" value="<?php echo esc_attr($admin_email); ?>" class="regular-text"></td>
                 </tr>
             </table>
+            <?php pcvs_render_update_settings(); ?>
+            <?php else : ?>
+            <h2><?php esc_html_e('Field Settings', 'product-code-verification-system'); ?></h2>
             <h2 class="title"><?php esc_html_e('Frontend Display Fields', 'product-code-verification-system'); ?></h2>
             <p class="description"><?php esc_html_e('Configure the fields that appear on the frontend after a successful verification. Drag to reorder.', 'product-code-verification-system'); ?></p>
             <div id="pcvs-fields-manager">
@@ -216,6 +230,7 @@ function pcvs_settings_page_callback() {
                 </div>
                 <button type="button" id="pcvs-add-field" class="button"><?php esc_html_e('Add Custom Field', 'product-code-verification-system'); ?></button>
             </div>
+            <?php endif; ?>
            
             <?php submit_button(); ?>
         </form>
